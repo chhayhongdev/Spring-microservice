@@ -1,0 +1,24 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-AccountApplication<account>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.account.AccountApplication",
+            "projectName": "account",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-ConfigserverApplication<configserver>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.configserver.ConfigserverApplication",
+            "projectName": "configserver",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
