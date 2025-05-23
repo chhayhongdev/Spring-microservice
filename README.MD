@@ -1,0 +1,1 @@
+./run-config-server.sh --dry-run
