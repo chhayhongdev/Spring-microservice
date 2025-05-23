@@ -9,11 +9,9 @@ services:
     ports:
       - "8071:8071"
     environment:
-      - SPRING_PROFILES_ACTIVE=git
-      - GIT_USERNAME=${GIT_USERNAME}
-      - GIT_PASSWORD=${GIT_PASSWORD}
+      - SPRING_PROFILES_ACTIVE=dev
     env_file:
-      - .env
+      - configserver.env
     networks:
       - microservice-net
     deploy:
@@ -42,12 +40,15 @@ services:
       dockerfile: ../docker_dev/Dockerfile.account.dev
     container_name: account-dev
     ports:
-      - "8081:8081"
+      - "8080:8080"
+    env_file:
+      - account.env
     depends_on:
-      - configserver
+      configserver:
+        condition: service_healthy
     environment:
       - SPRING_PROFILES_ACTIVE=dev
-      - SPRING_CONFIG_IMPORT=optional:configserver:http://configserver:8071
+      - SPRING_CONFIG_IMPORT=configserver:http://configserver:8071
     networks:
       - microservice-net
     deploy:
@@ -64,7 +65,7 @@ services:
         max_attempts: 3
         window: 30s
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8081/actuator/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
       interval: 30s
       timeout: 10s
       retries: 3

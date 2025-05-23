@@ -38,7 +38,7 @@ echo "----------------------------------------------------"
 echo "Application Name: $APP_NAME (from $ACCOUNT_APP_NAME)"
 echo "Profile: $PROFILE (from $ACCOUNT_PROFILE)"
 echo "Server Port: $SERVER_PORT (from $ACCOUNT_SERVER_PORT)"
-echo "Config Server: $CONFIG_IMPORT"
+echo "Config Server: $SPRING_CONFIG_IMPORT"
 echo "----------------------------------------------------"
 
 # Trap EXIT signal to display a goodbye message

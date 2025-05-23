@@ -1,6 +1,8 @@
 # Ignore environment files containing sensitive information
-**/.env
-docker_dev/config-server.env
+**/*.env
+# Include all .env files
+.env
+docker_dev/account.env
 
 # Maven
 target/

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Source environment variables from docker_dev/.env
-ENV_FILE="$(dirname "$0")/docker_dev/config-server.env"
+ENV_FILE="$(dirname "$0")/docker_dev/configserver.env"
 
 if [ -f "$ENV_FILE" ]; then
     echo "Loading environment variables from $ENV_FILE"
@@ -30,7 +30,7 @@ echo "----------------------------------------------------"
 echo "Profile: $CONFIG_SERVICE_ACTIVE_PROFILE"
 echo "Git URI: $GIT_URI"
 echo "Git Branch: $GIT_BRANCH"
-echo "Server Port: $CONFIG_SERVICE_PORT"
+echo "Server Port: $SERVER_PORT"
 echo "----------------------------------------------------"
 
 # Trap EXIT signal to display a goodbye message
