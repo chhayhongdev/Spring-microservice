@@ -4,6 +4,11 @@
 .env
 docker_dev/account.env
 
+# Ignore local development properties
+dev.properties
+**/dev.properties
+**/*-local.properties
+
 # Maven
 target/
 !.mvn/wrapper/maven-wrapper.jar

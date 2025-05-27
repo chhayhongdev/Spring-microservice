@@ -34,6 +34,37 @@ services:
       retries: 3
       start_period: 40s
 
+  eureka-server:
+    build:
+      context: ../eureka-server
+      dockerfile: ../docker_dev/Dockerfile.eureka.dev
+    container_name: eureka-server-dev
+    ports:
+      - "8761:8761"
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+    networks:
+      - microservice-net
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: "512M"
+        reservations:
+          cpus: "0.1"
+          memory: "256M"
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+        max_attempts: 3
+        window: 30s
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8761/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
   account:
     build:
       context: ../account
@@ -46,9 +77,12 @@ services:
     depends_on:
       configserver:
         condition: service_healthy
+      eureka-server:
+        condition: service_healthy
     environment:
       - SPRING_PROFILES_ACTIVE=dev
       - SPRING_CONFIG_IMPORT=configserver:http://configserver:8071
+      - EUREKA_HOST=http://eureka-server:8761/eureka/
     networks:
       - microservice-net
     deploy:

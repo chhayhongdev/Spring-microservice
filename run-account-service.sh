@@ -23,6 +23,13 @@ if [ -f "$ENV_FILE" ]; then
             export "$new_var_name"="$var_value"
         fi
         
+        # Handle special case for Eureka URL
+        if [[ $var_name == "EUREKA_SERVER_URL" ]]; then
+            # Replace shell parameter expansion with actual value, defaulting to localhost
+            var_value="http://localhost:8761/eureka/"
+            echo "Setting $var_name to $var_value for local development"
+        fi
+        
         # Also export the original variable
         export "$var_name"="$var_value"
     done < "$ENV_FILE"
@@ -39,7 +46,11 @@ echo "Application Name: $APP_NAME (from $ACCOUNT_APP_NAME)"
 echo "Profile: $PROFILE (from $ACCOUNT_PROFILE)"
 echo "Server Port: $SERVER_PORT (from $ACCOUNT_SERVER_PORT)"
 echo "Config Server: $SPRING_CONFIG_IMPORT"
+echo "Eureka Server: $EUREKA_SERVER_URL"
 echo "----------------------------------------------------"
+
+# Force setting EUREKA_SERVER_URL directly
+export EUREKA_SERVER_URL="http://localhost:8761/eureka/"
 
 # Trap EXIT signal to display a goodbye message
 trap 'echo "Thank you for your hard work. See you next time 🥳"' EXIT
